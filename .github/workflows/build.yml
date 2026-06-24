@@ -30,8 +30,9 @@ jobs:
 
       - name: Build Debug APK
         run: |
-          # هنا ندخل للمجلد الذي كشفناه
-          cd build_dir/AutoTasleek
+          # العثور على المجلد الذي يحتوي على ملف gradlew والدخول إليه
+          PROJECT_ROOT=$(find build_dir -name gradlew -exec dirname {} \;)
+          cd $PROJECT_ROOT
           chmod +x gradlew
           ./gradlew assembleDebug
 
@@ -39,4 +40,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Auto-Tasleek-APK
-          path: build_dir/AutoTasleek/app/build/outputs/apk/debug/*.apk
+          path: build_dir/**/app/build/outputs/apk/debug/*.apk
