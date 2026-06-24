@@ -30,9 +30,11 @@ jobs:
 
       - name: Build Debug APK
         run: |
-          # العثور على المجلد الذي يحتوي على ملف gradlew والدخول إليه
-          PROJECT_ROOT=$(find build_dir -name gradlew -exec dirname {} \;)
-          cd $PROJECT_ROOT
+          # البحث عن مكان الملف أينما كان
+          GRADLEW_PATH=$(find build_dir -name "gradlew" | head -n 1)
+          DIR_PATH=$(dirname "$GRADLEW_PATH")
+          echo "تم العثور على المشروع في: $DIR_PATH"
+          cd "$DIR_PATH"
           chmod +x gradlew
           ./gradlew assembleDebug
 
