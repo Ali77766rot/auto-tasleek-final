@@ -12,6 +12,10 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
+      - name: Unzip Project Files
+        run: |
+          unzip AutoTasleek_New.zip
+
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
@@ -25,7 +29,6 @@ jobs:
 
       - name: Build Debug APK
         run: |
-          cd AutoTasleek
           chmod +x gradlew
           ./gradlew assembleDebug
 
@@ -33,4 +36,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Auto-Tasleek-APK
-          path: AutoTasleek/app/build/outputs/apk/debug/*.apk
+          path: app/build/outputs/apk/debug/*.apk
